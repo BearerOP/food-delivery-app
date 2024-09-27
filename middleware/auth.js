@@ -1,9 +1,9 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const user_model = require("../src/models/user_model");
+const User = require("../src/models/user");
 
 // Middleware for handling auth
-async function user_auth(req, res, next) {
+async function auth(req, res, next) {
   // Implement user auth logic
   // const token = req.cookies.token;
   try {
@@ -16,9 +16,9 @@ async function user_auth(req, res, next) {
     }
     const jwtPassword = process.env.SECRET_KEY;
     const decode = await jwt.verify(token, jwtPassword);
-    let user = await user_model
+    let user = await User
       .findOne({ _id: decode.id })
-      .select("-password -auth_key")
+      .select("-password -authKey")
       .exec();
     if (!user) return res.status(403).json({ msg: "User not found" });
     req.user = user;
@@ -32,4 +32,4 @@ async function user_auth(req, res, next) {
   }
 }
 
-module.exports = user_auth;
+module.exports = auth;

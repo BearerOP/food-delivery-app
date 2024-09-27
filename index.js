@@ -40,7 +40,8 @@ app.get('/', (req, res) => {
   res.send('The Pizza Point Backend is up. 😊');
 });
 
-// app.use('/api/v1/user', require('./src/routes/userRoutes.js'));
+app.use('/api/v1/user', require('./src/routes/user'));
+app.use('/api/v1/menu', require('./src/routes/menu'));
 
 connectDB();
 

@@ -1,9 +1,8 @@
-const { storage } = require("../../public/assets/firebaseConfig.js");
+const { storage } = require("../utils/firebaseConfig");
 const { ref, getDownloadURL, uploadBytesResumable } = require("firebase/storage");
-const user_model = require("../models/user_model");
+const User = require("../models/user");
 
-
-exports.profile_picture = async (req, res) => {
+exports.profilePicture = async (req, res) => {
   const user = req.user;
   if (!user) {
     return {
@@ -33,7 +32,7 @@ exports.profile_picture = async (req, res) => {
     const downloadURL = await getDownloadURL(snapshot.ref);
 
     // Update user's profile picture URL
-    const updatedUser = await user_model.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       user._id,
       { picture: downloadURL, updated_at: new Date() },
       { new: true }
