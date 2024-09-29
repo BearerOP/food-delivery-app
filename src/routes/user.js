@@ -14,7 +14,9 @@ const {
   profile,
   getAll,
   updateProfile,
-  profilePicture
+  profilePicture,
+  updateAddress,
+  getAddress
 } = require("../controllers/user.js");
 
 router.post("/login", login);
@@ -30,5 +32,9 @@ router.get("/getAll", auth, getAll);
 router.put("/profile/update", auth, updateProfile);
 
 router.post("/profile/picture", auth, upload.single("file"), profilePicture);
+
+router.put("/address/update", auth, updateAddress);
+
+router.get("/address/get",auth,getAddress)
 
 module.exports = router;

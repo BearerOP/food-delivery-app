@@ -31,6 +31,7 @@ exports.getItem = async (req, res) => {
     console.log("Error:", error);
   }
 };
+
 exports.updateItem = async (req, res) => {
   try {
     const data = await updateItem(req.params.id,req.body);

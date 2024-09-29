@@ -5,6 +5,8 @@ const {
   profile,
   getAll,
   updateProfile,
+  updateAddress,
+  getAddress
 } = require("../services/userValidation.js");
 
 const { profilePicture } = require("../services/profilePicture.js")
@@ -85,6 +87,32 @@ exports.updateProfile = async (req, res) => {
 exports.profilePicture = async (req, res) => {
   try {
     const data = await profilePicture(req, res);
+    if (data.success) {
+      res.status(200).json(data);
+    } else {
+      res.status(403).json(data);
+    }
+  } catch (error) {
+    console.log("Error:", error);
+  }
+};
+
+exports.updateAddress = async (req, res) => {
+  try {
+    const data = await updateAddress(req.user,req.body);
+    if (data.success) {
+      res.status(200).json(data);
+    } else {
+      res.status(403).json(data);
+    }
+  } catch (error) {
+    console.log("Error:", error);
+  }
+};
+
+exports.getAddress = async (req, res) => {
+  try {
+    const data = await getAddress(req.user);
     if (data.success) {
       res.status(200).json(data);
     } else {

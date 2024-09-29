@@ -29,6 +29,14 @@ const menuItemSchema = new Schema(
       type: Boolean,
       default: true,
     },
+    veg:{
+      type: Boolean,
+      default: true,
+    },
+    rating: {
+      type: Number,
+      default: 0,
+      },
   },
   { timestamps: true }
 );

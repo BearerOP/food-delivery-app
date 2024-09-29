@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "348657b7-9688-40dc-b411-19fe73f2862b",
+		"name": "Menu",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36755152"
+	},
+	"item": [
+		{
+			"name": "addItem",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVkY2JlYWQxNDFlZGI0OGNiZjVhYSIsImlhdCI6MTcyNzU5NTQxNX0.FENyyFGj1V9lGDghYKiM6F5jXegW29FOfBkC5Hv8zqw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Vanilla Pudding\",\n    \"picture\": \"https://example.com/images/chocolate-cake.jpg\",\n    \"description\": \"Rich and moist chocolate cake with a creamy chocolate frosting.\",\n    \"price\": 3.49,\n    \"category\": \"Desserts\",\n    \"isAvailable\": true\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/menu/add",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"menu",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getItemById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVkY2JlYWQxNDFlZGI0OGNiZjVhYSIsImlhdCI6MTcyNzQzODAzN30.4u7PWmluRxYWy9vC6JtZdvVUt1w18HKbufk17QVvWsk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/menu/get/66f6a773e4baef444136fd9d",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"menu",
+						"get",
+						"66f6a773e4baef444136fd9d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAlIItmes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVkY2JlYWQxNDFlZGI0OGNiZjVhYSIsImlhdCI6MTcyNzQzODAzN30.4u7PWmluRxYWy9vC6JtZdvVUt1w18HKbufk17QVvWsk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/menu/getAll",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"menu",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateItem",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVkY2JlYWQxNDFlZGI0OGNiZjVhYSIsImlhdCI6MTcyNzQzODAzN30.4u7PWmluRxYWy9vC6JtZdvVUt1w18HKbufk17QVvWsk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Chocolate Cake\",\n    \"picture\": \"https://example.com/images/chocolate-cake.jpg\",\n    \"description\": \"Rich and moist chocolate cake with a creamy chocolate frosting.\",\n    \"price\": 8.99,\n    \"category\": \"Desserts\",\n    \"isAvailable\": true\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/menu/update/66f6a773e4baef444136fd9d",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"menu",
+						"update",
+						"66f6a773e4baef444136fd9d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteItem",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVkY2JlYWQxNDFlZGI0OGNiZjVhYSIsImlhdCI6MTcyNzQzODAzN30.4u7PWmluRxYWy9vC6JtZdvVUt1w18HKbufk17QVvWsk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/v1/menu//delete/66f6a773e4baef444136fd9d",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"menu",
+						"",
+						"delete",
+						"66f6a773e4baef444136fd9d"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

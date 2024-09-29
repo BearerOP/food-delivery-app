@@ -95,12 +95,14 @@ const getItems = async () => {
       success: true,
       message: "Menu items retrieved successfully",
       data: items,
+      status: 200,
     };
   } catch (err) {
     return {
       success: false,
       message: "Server error",
       data: err.message,
+      status: 500,
     };
   }
 };

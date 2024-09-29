@@ -217,13 +217,69 @@ exports.updateProfile = async (req, res) => {
     return {
       success: true,
       message: "Profile updated successfully",
-      data: updatedData,
     };
   } catch (err) {
     return {
       success: false,
       message: "An error occurred while updating the profile",
       error: err.message,
+    };
+  }
+};
+
+exports.updateAddress = async (user, address) => {
+  try {
+    if (!address) {
+      return {
+        status: 400,
+        message: "Address is required",
+        success: false,
+      };
+    }
+    let existingUser = await User.findById(user._id);
+    if (!existingUser) {
+      return {
+        success: false,
+        message: "User not found",
+        status: 404,
+      };
+    }
+    existingUser.address = address;
+    await existingUser.save();
+    return {
+      success: true,
+      message: "User's Address updated successfully",
+      status: 200,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: "Server error",
+      status: 500,
+    };
+  }
+};
+
+exports.getAddress = async (user) => {
+  try {
+    let existingUser = await User.findById(user._id);
+    if (!existingUser) {
+      return {
+        success: false,
+        message: "User not found",
+        status: 404,
+      };
+    }
+    return {
+      success: true,
+      address: existingUser.address,
+      status: 200,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: "Server error",
+      status: 500,
     };
   }
 };

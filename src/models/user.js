@@ -22,12 +22,12 @@ const userSchema = new Schema(
       required: true,
     },
     address: {
-      houseNo:{type:String},
-      street:{type:String},
-      city:{type:String},
-      state: {type:String},
-      zip: {type:Number},
-      latitude: { type: Number }, 
+      houseNo: { type: String, required: true },
+      street: { type: String, required: true },
+      city: { type: String, required: true },
+      state: { type: String, required: true },
+      zip: { type: Number, required: true },
+      latitude: { type: Number },
       longitude: { type: Number },
     },
     picture: {
