@@ -14,7 +14,6 @@ const {
   profile,
   getAll,
   updateProfile,
-  profilePicture,
   updateAddress,
   getAddress
 } = require("../controllers/user.js");
@@ -30,8 +29,6 @@ router.get("/profile", auth, profile);
 router.get("/getAll", auth, getAll);
 
 router.put("/profile/update", auth, updateProfile);
-
-router.post("/profile/picture", auth, upload.single("file"), profilePicture);
 
 router.put("/address/update", auth, updateAddress);
 

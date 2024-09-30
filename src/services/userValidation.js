@@ -126,6 +126,8 @@ exports.logout = async (req, res) => {
 
 exports.profile = async (req, res) => {
   const user = req.user;
+  console.log(user);
+  
   try {
     if (!user) {
       return {

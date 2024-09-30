@@ -9,7 +9,6 @@ const {
   getAddress
 } = require("../services/userValidation.js");
 
-const { profilePicture } = require("../services/profilePicture.js")
 
 exports.login = async (req, res) => {
   try {
@@ -74,19 +73,6 @@ exports.getAll = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   try {
     const data = await updateProfile(req, res);
-    if (data.success) {
-      res.status(200).json(data);
-    } else {
-      res.status(403).json(data);
-    }
-  } catch (error) {
-    console.log("Error:", error);
-  }
-};
-
-exports.profilePicture = async (req, res) => {
-  try {
-    const data = await profilePicture(req, res);
     if (data.success) {
       res.status(200).json(data);
     } else {

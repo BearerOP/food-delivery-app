@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const auth = require("../../middleware/auth");
+const upload = require("../utils/multer");
 
 const {
     addItem,
@@ -12,7 +13,7 @@ const {
 } = 
 require("../controllers/menu");
 
-router.post("/add", auth, addItem);
+router.post("/add", auth,upload.single('picture'),  addItem);
 
 router.get("/getAll", auth, getItems);
 

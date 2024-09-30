@@ -8,7 +8,8 @@ const {
 
 exports.addItem = async (req, res) => {
   try {
-    const data = await addItem(req.user, req.body);
+    const data = await addItem(req.user, req.body, req.file);
+
     if (data.success) {
       res.status(200).json(data);
     } else {

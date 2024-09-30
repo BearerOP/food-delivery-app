@@ -1,8 +1,32 @@
-const MenuItem = require("../models/menuItem"); // Assuming MenuItem model is imported
+const MenuItem = require("../models/menuItem");
 const mongoose = require('mongoose')
+const cloudinary = require('cloudinary').v2;
+const streamifier = require('streamifier');
 
-// Add a new menu item
-const addItem = async (admin, body) => {
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+
+const uploadToCloudinary = (fileBuffer) => {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream({ folder: 'menu_items' }, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+
+    // Use streamifier to convert the file buffer into a readable stream
+    streamifier.createReadStream(fileBuffer).pipe(uploadStream);
+  });
+};
+
+const addItem = async (admin, body, file) => {
   try {
     // Check if the user is an admin
     if (admin.role !== "admin") {
@@ -14,21 +38,13 @@ const addItem = async (admin, body) => {
     }
 
     // Destructure the body
-    const { name, price, description, category, picture, isAvailable } = body;
+    const { name, price, description, category, isAvailable } = body;
 
     // Validation checks
     if (!name || typeof name !== "string") {
       return {
         success: false,
         message: "Name is required and must be a string",
-        status: 400,
-      };
-    }
-
-    if (typeof price !== "number" || price <= 0) {
-      return {
-        success: false,
-        message: "Price must be a positive number",
         status: 400,
       };
     }
@@ -51,6 +67,13 @@ const addItem = async (admin, body) => {
       };
     }
 
+    // Upload image to Cloudinary if file is provided
+    let imageUrl = '';
+    if (file) {
+      const result = await uploadToCloudinary(file.buffer);
+      imageUrl = result.secure_url; // Get Cloudinary URL
+    }
+    
     // Create new menu item
     const newItem = new MenuItem({
       owner: admin._id,
@@ -58,7 +81,7 @@ const addItem = async (admin, body) => {
       price,
       description,
       category,
-      picture, // Changed from `image` to `picture` to match your schema
+      picture: imageUrl,
       isAvailable: isAvailable !== undefined ? isAvailable : true, // Default to true if not provided
     });
 
@@ -78,6 +101,7 @@ const addItem = async (admin, body) => {
       status: 200, // Add status for successful addition
     };
   } catch (err) {
+    console.error(err);
     return {
       success: false,
       message: "Server error",
