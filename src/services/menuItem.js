@@ -38,7 +38,7 @@ const addItem = async (admin, body, file) => {
     }
 
     // Destructure the body
-    const { name, price, description, category, isAvailable } = body;
+    const { name, price, description, category, isAvailable,veg } = body;
 
     // Validation checks
     if (!name || typeof name !== "string") {
@@ -81,6 +81,7 @@ const addItem = async (admin, body, file) => {
       price,
       description,
       category,
+      veg,
       picture: imageUrl,
       isAvailable: isAvailable !== undefined ? isAvailable : true, // Default to true if not provided
     });
@@ -223,6 +224,7 @@ const updateItem = async (id, updateData) => {
     item.category = category;
     item.picture = picture;
     item.isAvailable = isAvailable;
+    item.veg = veg;
 
     const updatedItem = await item.save(); // Save the updated item
 

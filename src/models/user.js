@@ -22,17 +22,17 @@ const userSchema = new Schema(
       required: true,
     },
     address: {
-      houseNo: { type: String, required: true },
-      street: { type: String, required: true },
-      city: { type: String, required: true },
-      state: { type: String, required: true },
-      zip: { type: Number, required: true },
+      houseNo: { type: String },
+      street: { type: String },
+      city: { type: String },
+      state: { type: String },
+      zip: { type: Number },
       latitude: { type: Number },
       longitude: { type: Number },
     },
     picture: {
       type: String,
-      default: "",
+      default: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/usre.png?alt=media&token=0e70b4f5-bb5c-438d-9607-81a632867209",
     },
     authKey: {
       type: String,
@@ -42,7 +42,7 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
-    orders: [{ type: Schema.Types.ObjectId, ref: "Order" }],
+    orders: [{ type: String, ref: "Order" }],
   },
   { timestamps: true }
 );
