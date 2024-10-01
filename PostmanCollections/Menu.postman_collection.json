@@ -14,7 +14,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVkY2JlYWQxNDFlZGI0OGNiZjVhYSIsImlhdCI6MTcyNzU5NTQxNX0.FENyyFGj1V9lGDghYKiM6F5jXegW29FOfBkC5Hv8zqw",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVkY2JlYWQxNDFlZGI0OGNiZjVhYSIsImlhdCI6MTcyNzcwMjc1Mn0.vSB5os_iNzCRQCoxj-tM7y82SbXiJwYpo99f3rEIG60",
 							"type": "string"
 						}
 					]
@@ -22,13 +22,45 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Vanilla Pudding\",\n    \"picture\": \"https://example.com/images/chocolate-cake.jpg\",\n    \"description\": \"Rich and moist chocolate cake with a creamy chocolate frosting.\",\n    \"price\": 3.49,\n    \"category\": \"Desserts\",\n    \"isAvailable\": true\n  }",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Banana Pudding",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Rich and moist chocolate cake with a creamy chocolate frosting.",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "3.49",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Desserts",
+							"type": "text"
+						},
+						{
+							"key": "isAvailable",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "picture",
+							"contentType": "",
+							"type": "file",
+							"src": "/Users/bearer/Downloads/ae0655db-4bec-4447-9ee3-65b9cdeff743.png"
+						},
+						{
+							"key": "veg",
+							"value": "true",
+							"type": "text"
 						}
-					}
+					]
 				},
 				"url": {
 					"raw": "{{baseUrl}}/api/v1/menu/add",
