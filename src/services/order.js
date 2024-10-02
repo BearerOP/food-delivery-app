@@ -117,13 +117,13 @@ exports.getAllOrders = async (user) => {
     if (user.role === "customer") {
       // Retrieve only the orders for the specific customer
       orders = await Order.find({ userId: user._id }).populate({
-        path: 'items.menuItem',
+        path: 'items.id',
         model: 'MenuItem'
       });
     } else if (user.role === "admin") {
       // Admin retrieves all orders
       orders = await Order.find().populate({
-        path: 'items.menuItem',
+        path: 'items.id',
         model: 'MenuItem'
       });
     }
