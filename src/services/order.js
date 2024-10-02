@@ -110,25 +110,34 @@ exports.getAllOrders = async (user) => {
   try {
     if (!user) {
       return { status: 401, message: "Unauthorized", success: false };
-
-      // Check if the user is an admin
-    } else if (user.role == "customer") {
-      const orders = await Order.find({ userId: user._id });
-      return {
-        status: 200,
-        message: "Orders retrieved successfully",
-        success: true,
-        data: orders,
-      };
-    } else if (user.role == "admin") {
-      const orders = await Order.find();
-      return {
-        status: 200,
-        message: "Orders retrieved successfully",
-        success: true,
-        data: orders,
-      };
     }
+
+    let orders;
+    
+    if (user.role === "customer") {
+      // Retrieve only the orders for the specific customer
+      orders = await Order.find({ userId: user._id }).populate({
+        path: 'items.menuItem',
+        model: 'MenuItem'
+      });
+    } else if (user.role === "admin") {
+      // Admin retrieves all orders
+      orders = await Order.find().populate({
+        path: 'items.menuItem',
+        model: 'MenuItem'
+      });
+    }
+
+    if (!orders) {
+      return { status: 404, message: "No orders found", success: false };
+    }
+
+    return {
+      status: 200,
+      message: "Orders retrieved successfully",
+      success: true,
+      data: orders,
+    };
   } catch (error) {
     console.log(error);
     return {
