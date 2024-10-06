@@ -206,7 +206,7 @@ const updateItem = async (id, updateData) => {
     }
 
     // Validate the fields to be updated
-    const { name, price, description, category, picture, isAvailable } = updateData;
+    const { name, price, description, category, picture, isAvailable, veg } = updateData; // Add veg to destructure
 
     // Check for required fields
     if (!name || !price || !category) {
@@ -224,7 +224,7 @@ const updateItem = async (id, updateData) => {
     item.category = category;
     item.picture = picture;
     item.isAvailable = isAvailable;
-    item.veg = veg;
+    item.veg = veg;  // Ensure veg is defined
 
     const updatedItem = await item.save(); // Save the updated item
 
@@ -243,6 +243,7 @@ const updateItem = async (id, updateData) => {
     };
   }
 };
+
 
 
 // Delete a menu item by ID

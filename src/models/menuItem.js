@@ -32,7 +32,7 @@ const menuItemSchema = new Schema(
     },
     veg:{
       type: Boolean,
-      default: true,
+      default: "",
     },
     rating: {
       type: Number,
