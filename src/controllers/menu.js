@@ -10,7 +10,6 @@ const {
 exports.addItem = async (req, res) => {
   try {
     const data = await addItem(req.user, req.body, req.file);
-
     if (data.success) {
       res.status(200).json(data);
     } else {
@@ -36,7 +35,7 @@ exports.getItem = async (req, res) => {
 
 exports.updateItem = async (req, res) => {
   try {
-    const data = await updateItem(req.params.id,req.body);
+    const data = await updateItem(req.params.id,req.body,req.file);
     if (data.success) {
       res.status(200).json(data);
     } else {

@@ -227,7 +227,7 @@ const updateAvailability = async (id, updateData) => {
   }
 };
 
-const updateItem = async (id, updateData) => {
+const updateItem = async (id, updateData, file) => {
   try {
     // Check if ID is provided
     if (!id) {
@@ -258,8 +258,14 @@ const updateItem = async (id, updateData) => {
       };
     }
 
+    let imageUrl = '';
+    if (file) {
+      // If a file is provided, upload it to Cloudinary
+      const result = await uploadToCloudinary(file.buffer);
+      imageUrl = result.secure_url; // Get Cloudinary URL
+    }
     // Validate the fields to be updated
-    const { name, price, description, category, picture, isAvailable, veg } = updateData; // Add veg to destructure
+    const { name, price, description, category, isAvailable, veg } = updateData; // Add veg to destructure
 
     // Check for required fields
     if (!name || !price || !category) {
@@ -275,9 +281,13 @@ const updateItem = async (id, updateData) => {
     item.price = price;
     item.description = description;
     item.category = category;
-    item.picture = picture;
     item.isAvailable = isAvailable;
-    item.veg = veg;  // Ensure veg is defined
+    item.veg = veg; // Ensure veg is defined
+
+    // If imageUrl is provided (i.e., a new image was uploaded), update the picture field
+    if (imageUrl) {
+      item.picture = imageUrl;
+    }
 
     const updatedItem = await item.save(); // Save the updated item
 
