@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -32,7 +32,7 @@ exports.register = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 exports.logout = async (req, res) => {
@@ -42,7 +42,7 @@ exports.logout = async (req, res) => {
       res.status(200).json(data);
     }
   } catch (error) {
-    console.log("Error: ", error);
+    console.error("Error: ", error);
   }
 };
 
@@ -53,7 +53,7 @@ exports.profile = async (req, res) => {
       res.status(200).json(data);
     }
   } catch (error) {
-    console.log("Error: ", error);
+    console.error("Error: ", error);
   }
 };
 
@@ -66,7 +66,7 @@ exports.getAll = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -79,7 +79,7 @@ exports.updateProfile = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -92,7 +92,7 @@ exports.updateAddress = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -105,6 +105,6 @@ exports.getAddress = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };

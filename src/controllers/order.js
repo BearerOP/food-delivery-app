@@ -13,7 +13,7 @@ exports.orderPlaced = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -26,7 +26,7 @@ exports.updateOrder = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -39,6 +39,6 @@ exports.getAllOrders = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };

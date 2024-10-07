@@ -102,7 +102,6 @@ const addItem = async (admin, body, file) => {
       status: 200, // Add status for successful addition
     };
   } catch (err) {
-    console.error(err);
     return {
       success: false,
       message: "Server error",

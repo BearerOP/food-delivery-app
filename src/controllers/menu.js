@@ -16,7 +16,7 @@ exports.addItem = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -29,7 +29,7 @@ exports.getItem = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -42,7 +42,7 @@ exports.updateItem = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -55,7 +55,7 @@ exports.updateAvailability = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -68,7 +68,7 @@ exports.deleteItem = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };
 
@@ -81,6 +81,6 @@ exports.getItems = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.log("Error:", error);
+    console.error("Error:", error);
   }
 };

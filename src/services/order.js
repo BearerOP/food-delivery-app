@@ -2,8 +2,6 @@ const User = require("../models/user");
 const Order = require("../models/order");
 
 exports.orderPlaced = async (user, body) => {
-  console.log(user);
-  
   try {
     const {
       orderId,
@@ -34,7 +32,6 @@ exports.orderPlaced = async (user, body) => {
       paymentMethod,
       paymentStatus,
     });
-    console.log(order);
     
     const placedOrder = await order.save();
     if (!placedOrder) {
