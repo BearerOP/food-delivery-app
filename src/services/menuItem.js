@@ -173,7 +173,60 @@ const getItem = async (id) => {
   }
 };
 
-// Update a menu item by ID
+// Update availability of menu item by ID
+const updateAvailability = async (id, updateData) => {
+  try {
+    // Check if ID is provided
+    if (!id) {
+      return {
+        success: false,
+        message: "Menu item ID is required",
+        status: 400,
+      };
+    }
+
+    // Validate the ID format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return {
+        success: false,
+        message: "Invalid Menu item ID format",
+        status: 400,
+      };
+    }
+
+    // Check if the item exists
+    const item = await MenuItem.findById(id);
+    if (!item) {
+      return {
+        success: false,
+        message: "Menu item not found",
+        data: null,
+        status: 404,
+      };
+    }
+    
+    // Validate the fields to be updated
+    const { isAvailable } = updateData; // Add veg to destructure
+    
+    item.isAvailable = isAvailable;
+    const updatedItem = await item.save(); // Save the updated item
+
+    return {
+      success: true,
+      message: "Menu item updated successfully",
+      data: updatedItem,
+      status: 200,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: "Server error",
+      data: err.message,
+      status: 500,
+    };
+  }
+};
+
 const updateItem = async (id, updateData) => {
   try {
     // Check if ID is provided
@@ -302,4 +355,5 @@ module.exports = {
   getItem,
   updateItem,
   deleteItem,
+  updateAvailability
 };

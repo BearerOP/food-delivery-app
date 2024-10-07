@@ -4,6 +4,7 @@ const {
   getItem,
   updateItem,
   deleteItem,
+  updateAvailability
 } = require("../services/menuItem");
 
 exports.addItem = async (req, res) => {
@@ -36,6 +37,19 @@ exports.getItem = async (req, res) => {
 exports.updateItem = async (req, res) => {
   try {
     const data = await updateItem(req.params.id,req.body);
+    if (data.success) {
+      res.status(200).json(data);
+    } else {
+      res.status(403).json(data);
+    }
+  } catch (error) {
+    console.log("Error:", error);
+  }
+};
+
+exports.updateAvailability = async (req, res) => {
+  try {
+    const data = await updateAvailability(req.params.id,req.body);
     if (data.success) {
       res.status(200).json(data);
     } else {

@@ -10,6 +10,7 @@ const {
     getItem,
     updateItem,
     deleteItem,
+    updateAvailability
 } = 
 require("../controllers/menu");
 
@@ -22,5 +23,7 @@ router.get("/get/:id", auth, getItem);
 router.put("/update/:id", auth, updateItem);
 
 router.delete("/delete/:id", auth, deleteItem);
+
+router.put("/update/available/:id", auth, updateAvailability);
 
 module.exports = router;
