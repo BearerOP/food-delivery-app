@@ -16,10 +16,7 @@ async function auth(req, res, next) {
     }
     const jwtPassword = process.env.SECRET_KEY;
     const decode = await jwt.verify(token, jwtPassword);
-    let user = await User
-      .findOne({ _id: decode.id })
-      .select("-password -authKey")
-      .exec();
+    const user = decode.user;
     if (!user) return res.status(403).json({ msg: "User not found" });
     req.user = user;
     next();
