@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ user:existingUser }, process.env.SECRET_KEY);
+    const token = jwt.sign({ user:existingUser._id }, process.env.SECRET_KEY);
     if (!token) {
       return res.json({ message: " Token generation failed" });
     }
