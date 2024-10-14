@@ -14,6 +14,8 @@ app.use(bodyParser.json());
 
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://localhost:3000",
+  "https://food-planet-admin.vercel.app"
 ];
 
 const corsOptions = {
