@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 exports.login = async (req, res) => {
   try {
-    const { mobile, password } = req.body;
+    const { mobile, password, notificationToken } = req.body;
     const existingUser = await User.findOne({ mobile });
     if (!existingUser) {
       return {
@@ -12,6 +12,10 @@ exports.login = async (req, res) => {
         message: "Invalid mobile number or not registered!",
       };
     }
+    if (!notificationToken) {
+      return res.json({ message: "Notification Token not provided!" });
+    }
+
     const isPasswordValid = await bcrypt.compare(
       password,
       existingUser.password
@@ -24,7 +28,7 @@ exports.login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ user:existingUser._id }, process.env.SECRET_KEY);
+    const token = jwt.sign({ user: existingUser._id }, process.env.SECRET_KEY);
     if (!token) {
       return res.json({ message: " Token generation failed" });
     }
@@ -33,12 +37,15 @@ exports.login = async (req, res) => {
     res.cookie("role", existingUser.role);
     const authKeyInsertion = await User.findOneAndUpdate(
       { _id: existingUser._id },
-      { authKey: token },
+      {
+        authKey: token,
+        notificationToken: notificationToken,
+      },
       { new: true }
     );
 
     if (!authKeyInsertion) {
-      return res.json({ message: "Token updation failed" });
+      return res.json({ message: "Token updation failed!" });
     }
 
     return {
