@@ -49,9 +49,9 @@ exports.orderPlaced = async (user, body) => {
       title: "Order Recieved",
       body: `You recieved an order from ${user.username}`,
     });
-    // console.log(
-    //   sentMsg
-    // );
+    console.log(
+      sentMsg
+    );
     
     return { status: 200, message: "Order placed successfully", success: true };
   } catch (error) {
