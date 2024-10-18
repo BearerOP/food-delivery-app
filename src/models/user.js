@@ -22,17 +22,18 @@ const userSchema = new Schema(
       required: true,
     },
     address: {
-      houseNo: { type: String },
-      street: { type: String },
-      city: { type: String },
-      state: { type: String },
-      zip: { type: Number },
-      latitude: { type: Number },
-      longitude: { type: Number },
+      houseNo: { type: String, default: "" },
+      street: { type: String, default: "" },
+      city: { type: String, default: "" },
+      state: { type: String, default: "" },
+      zip: { type: Number, default: 0 },
+      latitude: { type: Number, default: 0 },
+      longitude: { type: Number, default: 0 },
     },
     picture: {
       type: String,
-      default: "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/usre.png?alt=media&token=0e70b4f5-bb5c-438d-9607-81a632867209",
+      default:
+        "https://firebasestorage.googleapis.com/v0/b/theslugproject.appspot.com/o/usre.png?alt=media&token=0e70b4f5-bb5c-438d-9607-81a632867209",
     },
     authKey: {
       type: String,
