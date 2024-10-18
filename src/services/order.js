@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Order = require("../models/order");
+const { sendMessage } = require("../utils/fcmService");
 
 exports.orderPlaced = async (user, body) => {
   try {
@@ -32,7 +33,6 @@ exports.orderPlaced = async (user, body) => {
       paymentMethod,
       paymentStatus,
     });
-    
     const placedOrder = await order.save();
     if (!placedOrder) {
       return { status: 404, message: "Order not placed", success: false };
@@ -43,6 +43,16 @@ exports.orderPlaced = async (user, body) => {
     if (!savedOrder) {
       return { status: 404, message: "Order not saved", success: false };
     }
+    const token =
+      "djUqFdr3SmuniMW4SYg8SL:APA91bHBJrXNJa_s_BzSDeHuFJxxuB-LOwz1dkglg1a8MJEM4sfrqbz1q1MRILtlhWwb1dVntncLHEKsCuR9o1N7CVtJ32dl10eYvxC2axWjg8FeXj8jLILquySOfkwMMgxbqTzbcqlE";
+    const sentMsg = await sendMessage(token, {
+      title: "Order Recieved",
+      body: `You recieved an order from ${user.username}`,
+    });
+    // console.log(
+    //   sentMsg
+    // );
+    
     return { status: 200, message: "Order placed successfully", success: true };
   } catch (error) {
     console.log(error);
@@ -110,18 +120,18 @@ exports.getAllOrders = async (user) => {
     }
 
     let orders;
-    
+
     if (user.role === "customer") {
       // Retrieve only the orders for the specific customer
       orders = await Order.find({ userId: user._id }).populate({
-        path: 'items.id',
-        model: 'MenuItem'
+        path: "items.id",
+        model: "MenuItem",
       });
     } else if (user.role === "admin") {
       // Admin retrieves all orders
       orders = await Order.find().populate({
-        path: 'items.id',
-        model: 'MenuItem'
+        path: "items.id",
+        model: "MenuItem",
       });
     }
 
