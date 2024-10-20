@@ -47,10 +47,16 @@ const sendMessage = async (fcmToken, message) => {
       data: data
     });
     console.log("Successfully sent message:", response);
-    return response;
+    return {
+      success: true,
+      message: "Message sent successfully",
+      response:response
+    }
   } catch (error) {
-    console.error("Error sending message:", error);
-    throw error; // Throw error to handle it in calling service
+    return{
+      message: error.message,
+      success:false
+    }
   }
 };
 

@@ -51,12 +51,10 @@ exports.orderPlaced = async (user, body) => {
       title: "Order Recieved",
       body: `You recieved an order from ${user.username}`,
     });
-    
-    if (!msgSent) {
-      return { status: 404, message: "Message not sent", success: false };
+    if (!msgSent.success) {
+      return { status: 404, message: msgSent.message, success: false };
       }
-
-    return { status: 200, message: "Order placed successfully", success: true };
+    return { status: 200, message: msgSent.message, success: true };
   } catch (error) {
     console.log(error);
     return {

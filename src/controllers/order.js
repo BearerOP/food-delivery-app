@@ -13,7 +13,12 @@ exports.orderPlaced = async (req, res) => {
       res.status(403).json(data);
     }
   } catch (error) {
-    console.error("Error:", error);
+    res.status(500).json(
+      {
+        success: false,
+        message: "Internal Server Error",
+        },
+    )
   }
 };
 
