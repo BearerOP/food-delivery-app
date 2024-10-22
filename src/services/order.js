@@ -21,7 +21,6 @@ exports.orderPlaced = async (user, body) => {
       return { status: 404, message: "User not found", success: false };
     }
 
-    
     const order = new Order({
       userId,
       orderId,
@@ -32,14 +31,14 @@ exports.orderPlaced = async (user, body) => {
       totalPrice,
       status,
       deliveryAddress: user.address,
-      userContact:user.mobile,
+      userContact: user.mobile,
       paymentMethod,
       paymentStatus,
     });
-    
-    const admin = await User.findById("671271750d9ee33765fd890f");
-    const adminToken = admin.notificationToken;
 
+    const admins = await User.find({ role: "admin" });
+    const adminTokens = admins.map((admin) => admin.notificationToken);
+  
     const placedOrder = await order.save();
     if (!placedOrder) {
       return { status: 404, message: "Order not placed", success: false };
@@ -50,10 +49,11 @@ exports.orderPlaced = async (user, body) => {
     if (!savedOrder) {
       return { status: 404, message: "Order not saved", success: false };
     }
-    const msgSent = await sendMessage(adminToken, {
+    const msgSent = await sendMessage(adminTokens, {
       title: "Order Recieved",
       body: `You recieved an order from ${user.username}`,
     });
+    
     if (!msgSent.success) {
       return { status: 404, message: msgSent.message, success: false };
     }

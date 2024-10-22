@@ -19,44 +19,45 @@ admin.initializeApp({
   storageBucket: "food-planet-7a1be.appspot.com",
 });
 
-const hi = {
-  notification: {
-    android: {},
-    body: "Your order has been placed successfully",
-    title: "Order Placed",
-  },
-  sentTime: 1729280781620,
-  data: {},
-  from: "560511134779",
-  messageId: "0:1729280781629861%e40f9203e40f9203",
-  ttl: 2419200,
-  collapseKey: "com.foodplanet",
-};
-const sendMessage = async (fcmToken, message) => {
+const sendMessage = async (fcmTokens, message) => {
   try {
     const data = {
       timestamp: Date.now().toString(),
     };
-    
-    const response = await admin.messaging().send({
-      token: fcmToken,
-      notification: {
-        title: message.title,
-        body: message.body,
-      },
-      data: data
-    });
-    console.log("Successfully sent message:", response);
+
+    const validTokens = fcmTokens.filter(token => token);
+    if (validTokens.length === 0) {
+      return {
+        success: false,
+        message: "No valid FCM tokens provided",
+      };
+    }
+    const responses = await Promise.all(
+      validTokens.map(fcmToken =>
+        admin.messaging().send({
+          token: fcmToken,
+          notification: {
+            title: message.title,
+            body: message.body,
+          },
+          data: data,
+        })
+      )
+    );
+
+    console.log("Successfully sent messages:", responses);
+
     return {
       success: true,
-      message: "Message sent successfully",
-      response:response
-    }
+      message: "Messages sent successfully",
+      responses, 
+    };
   } catch (error) {
-    return{
+    console.error("Error sending messages:", error);
+    return {
+      success: false,
       message: error.message,
-      success:false
-    }
+    };
   }
 };
 
