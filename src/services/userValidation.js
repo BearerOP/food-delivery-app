@@ -108,9 +108,7 @@ exports.logout = async (req, res) => {
   try {
     const currentUser = await User.findOneAndUpdate(
       { _id: user._id },
-      { authKey: null,
-        notificationToken: null,
-       }
+      { authKey: null, notificationToken: null }
     );
     res.clearCookie("token");
     if (currentUser) {

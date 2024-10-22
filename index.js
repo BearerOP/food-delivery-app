@@ -45,6 +45,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/user', require('./src/routes/user'));
 app.use('/api/v1/menu', require('./src/routes/menu'));
 app.use('/api/v1/order', require('./src/routes/order'));
+app.use('/api/v1/discount', require('./src/routes/discount'));
 
 connectDB();
 
