@@ -41,6 +41,11 @@ const orderSchema = new Schema(
       latitude: { type: Number },
       longitude: { type: Number }
     },
+    userContact:{
+      type:Number,
+      required:true,
+      
+    },
     orderTime: {
       type:String,
       required:true

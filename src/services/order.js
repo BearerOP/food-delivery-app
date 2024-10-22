@@ -20,6 +20,8 @@ exports.orderPlaced = async (user, body) => {
     if (!existingUser) {
       return { status: 404, message: "User not found", success: false };
     }
+
+    
     const order = new Order({
       userId,
       orderId,
@@ -30,11 +32,12 @@ exports.orderPlaced = async (user, body) => {
       totalPrice,
       status,
       deliveryAddress: user.address,
+      userContact:user.mobile,
       paymentMethod,
       paymentStatus,
     });
-
-    const admin = await User.findById('671271750d9ee33765fd890f')
+    
+    const admin = await User.findById("671271750d9ee33765fd890f");
     const adminToken = admin.notificationToken;
 
     const placedOrder = await order.save();
@@ -53,8 +56,8 @@ exports.orderPlaced = async (user, body) => {
     });
     if (!msgSent.success) {
       return { status: 404, message: msgSent.message, success: false };
-      }
-    return { status: 200, message: msgSent.message, success: true };
+    }
+    return { status: 200, message: "Order placed successfully", success: true };
   } catch (error) {
     console.log(error);
     return {
