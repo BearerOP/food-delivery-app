@@ -1,4 +1,5 @@
 const Discount = require("../models/discount");
+const DeliveryCharge = require('../models/order')
 
 const createDiscount = async (admin, discount) => {
   try {
@@ -52,6 +53,8 @@ const getDiscounts = async (discountId) => {
         status: 400,
       };
     }
+    const deliveryCharge = await DeliveryCharge.find();
+
 
     if (discountId) {
       const discount = await Discount.findById(discountId);
@@ -66,7 +69,8 @@ const getDiscounts = async (discountId) => {
         success: true,
         message: "Discount found",
         status: 200,
-        data: discount,
+        discount: discount,
+        deliveryCharge:deliveryCharge
       };
     }
   } catch (error) {
@@ -81,11 +85,13 @@ const getDiscounts = async (discountId) => {
 
 const getAllDiscounts = async () => {
   try {
+    const deliveryCharge = await DeliveryCharge.find();
     const discounts = await Discount.find();
     return {
       success: true,
       message: "All Discounts retrieved successfully",
-      data: discounts,
+      discounts: discounts,
+      deliveryCharge: deliveryCharge,
       status: 200,
     };
   } catch (err) {
