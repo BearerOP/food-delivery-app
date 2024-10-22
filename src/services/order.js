@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Order = require("../models/order");
 const { sendMessage } = require("../utils/fcmService");
+const DeliveryCharge = require('../models/order')
 
 exports.orderPlaced = async (user, body) => {
   try {
@@ -38,7 +39,7 @@ exports.orderPlaced = async (user, body) => {
 
     const admins = await User.find({ role: "admin" });
     const adminTokens = admins.map((admin) => admin.notificationToken);
-  
+
     const placedOrder = await order.save();
     if (!placedOrder) {
       return { status: 404, message: "Order not placed", success: false };
@@ -53,7 +54,7 @@ exports.orderPlaced = async (user, body) => {
       title: "Order Recieved",
       body: `You recieved an order from ${user.username}`,
     });
-    
+
     if (!msgSent.success) {
       return { status: 404, message: msgSent.message, success: false };
     }
@@ -158,3 +159,72 @@ exports.getAllOrders = async (user) => {
     };
   }
 };
+
+exports.deliveryCharge = async (body) => {
+  try {
+    const { deliveryCharge } = body;
+
+    if (!deliveryCharge) {
+      return {
+        status: 400,
+        message: "Delivery charge is required",
+        success: false,
+      };
+    }
+
+    // Update or create the delivery charge
+    const newDeliveryCharge = await DeliveryCharge.findOneAndUpdate(
+      {}, // Assuming you're updating the global delivery charge (not filtered by ID)
+      { deliveryCharge },
+      { new: true, upsert: true } // `upsert` creates the document if it doesn't exist
+    );
+
+    return {
+      status: 201,
+      message: "Delivery charge updated successfully",
+      success: true,
+      data: newDeliveryCharge,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: 500,
+      message: error.message || "Internal Server Error",
+      success: false,
+    };
+  }
+};
+exports.deliveryCharge = async (body) => {
+  try {
+    const { deliveryCharge } = body;
+
+    if (!deliveryCharge) {
+      return {
+        status: 400,
+        message: "Delivery charge is required",
+        success: false,
+      };
+    }
+
+    const newDeliveryCharge = await DeliveryCharge.findOneAndUpdate(
+      {}, // Assuming you're updating the global delivery charge (not filtered by ID)
+      { deliveryCharge },
+      { new: true, upsert: true } // `upsert` creates the document if it doesn't exist
+    );
+
+    return {
+      status: 201,
+      message: "Delivery charge updated successfully",
+      success: true,
+      data: newDeliveryCharge,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: 500,
+      message: error.message || "Internal Server Error",
+      success: false,
+    };
+  }
+};
+

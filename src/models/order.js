@@ -39,16 +39,15 @@ const orderSchema = new Schema(
       state: { type: String },
       zip: { type: Number },
       latitude: { type: Number },
-      longitude: { type: Number }
+      longitude: { type: Number },
     },
-    userContact:{
-      type:Number,
-      required:true,
-      
+    userContact: {
+      type: Number,
+      required: true,
     },
     orderTime: {
-      type:String,
-      required:true
+      type: String,
+      required: true,
     }, // Set when order is initiated
     paymentMethod: {
       type: String,
@@ -62,7 +61,15 @@ const orderSchema = new Schema(
     },
     deliveryPerson: { type: Schema.Types.ObjectId, ref: "User" }, // Added delivery person
   },
-  { timestamps: true }  // Remove _id: false, let Mongoose handle _id
+  { timestamps: true } // Remove _id: false, let Mongoose handle _id
+);
+
+const deliveryChargeSchema = new Schema(
+  {
+    deliveryCharge: { type: Number, required: true },
+  },
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Order", orderSchema);
+module.exports = mongoose.model("DeliveryCharge", deliveryChargeSchema);

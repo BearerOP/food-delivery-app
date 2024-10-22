@@ -7,6 +7,7 @@ const {
     updateOrder,
     orderPlaced,
     getAllOrders,
+    deliveryCharge
 } = require('../controllers/order')
 
 router.post('/placed', auth, orderPlaced);
@@ -14,5 +15,7 @@ router.post('/placed', auth, orderPlaced);
 router.put('/update/:orderId', auth, updateOrder)
 
 router.get('/all', auth, getAllOrders)
+
+router.put('/deliveryCharge', auth, deliveryCharge)
 
 module.exports = router;
