@@ -1,7 +1,6 @@
 const User = require("../models/user");
-const Order = require("../models/order");
+const {DeliveryCharge,Order} = require("../models/order");
 const { sendMessage } = require("../utils/fcmService");
-const DeliveryCharge = require('../models/order')
 
 exports.orderPlaced = async (user, body) => {
   try {

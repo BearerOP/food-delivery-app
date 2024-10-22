@@ -61,7 +61,7 @@ const orderSchema = new Schema(
     },
     deliveryPerson: { type: Schema.Types.ObjectId, ref: "User" }, // Added delivery person
   },
-  { timestamps: true } // Remove _id: false, let Mongoose handle _id
+  { timestamps: true }
 );
 
 const deliveryChargeSchema = new Schema(
@@ -71,5 +71,7 @@ const deliveryChargeSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Order", orderSchema);
-module.exports = mongoose.model("DeliveryCharge", deliveryChargeSchema);
+module.exports = {
+  Order: mongoose.model("Order", orderSchema),
+  DeliveryCharge: mongoose.model("DeliveryCharge", deliveryChargeSchema),
+};

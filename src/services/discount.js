@@ -1,5 +1,5 @@
 const Discount = require("../models/discount");
-const DeliveryCharge = require('../models/order')
+const {DeliveryCharge} = require('../models/order')
 
 const createDiscount = async (admin, discount) => {
   try {
