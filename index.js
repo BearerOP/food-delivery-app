@@ -39,7 +39,7 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions))
 
 app.get('/', (req, res) => {
-  res.send('The Pizza Point Backend is up. 😊');
+  res.send('FoodPlanet Backend is up. 😊');
 });
 
 app.use('/api/v1/user', require('./src/routes/user'));
